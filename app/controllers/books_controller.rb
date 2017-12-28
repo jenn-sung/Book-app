@@ -22,5 +22,23 @@ class BooksController < ApplicationController
     end
   end
 
-   
+  def update
+    book = Book.find_by(id: params[:id])
+    if book.update(
+      name: params[:name],
+      author: params[:author],
+      year: params[:year],
+      price: params[:price]
+      )
+      render json: book.as_json
+    else
+      render json: {errors: book.errors.full_messages}
+    end
+  end
+
+  def destroy
+    book = Book.find_by(id: params[:id])
+    book.destroy
+    render json: book.as_json
+  end
 end
