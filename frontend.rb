@@ -7,7 +7,8 @@ p "Choose an option!"
 p "[1] See all of my books"
 p "[2] See a specific book"
 p "[3] Create a new book option"
-p "[4] Delete a book option"
+p "[4] Update a book option"
+p "[5] Delete a book option"
 
 
 user_input = gets.chomp
@@ -34,6 +35,17 @@ elsif user_input == '3'
   response = Unirest.post("localhost:3000/books", parameters: the_params)
   pp response
 elsif user_input == '4'
+  the_params = {}
+  p "Enter the id of the book option that you want to update"
+  book_id = gets.chomp
+  p "Enter the name of the book"
+  the_params[:name] = gets.chomp
+  response = Unirest.patch("localhost:3000/books", parameters: the_params)
+
+
+  
+    
+elsif user_input == '5'
   p "Enter the id of the book you would like to delete"
   book_id = gets.chomp
   response = Unirest.delete("localhost:3000/books/#{book_id}")
